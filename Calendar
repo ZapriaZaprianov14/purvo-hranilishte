@@ -1,0 +1,189 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+const char days[7][10]={"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
+const char months[12][10]={"January","February","March","April","May","June","July","August","September","October","November","December"};
+int monthDays[]={31,28,31,30,31,30,31,31,30,31,30,31};
+int year=2023;
+int* pYear=&year;
+int monthIndex=2;
+int* pMonthIndex=&monthIndex;
+int monthDay=1;
+int* pMonthDay=&monthDay;
+int dayIndex=2;
+int* pDayIndex=&dayIndex;
+
+void printGrid(){
+    printf("M   T   W   T   F   S   S\n");
+    for(int i=0;i<dayIndex;i++){
+        printf("    ");
+    }
+    int numberOfdays=monthDays[*pMonthIndex];
+    for(int i=0;i<numberOfdays;i++){
+        if(*pDayIndex==0){
+            printf("\n");
+            if(*pMonthDay>=10){
+                printf("%d  ",*pMonthDay);
+            }
+            else{
+                printf("%d   ",*pMonthDay);
+            }
+        }
+        else{
+            if(*pMonthDay>=10){
+                printf("%d  ",*pMonthDay);
+            }
+            else{
+                printf("%d   ",*pMonthDay);
+            }
+        }
+        changeDay(1,1);
+    }
+}
+
+void printMonth(char month[],int year){
+    int lclMonthIndex;
+    if (month=="January")
+        lclMonthIndex=0;
+    else if(month=="February")
+        lclMonthIndex=1;
+    else if(month=="March")
+        lclMonthIndex=2;
+    else if(month=="April")
+        lclMonthIndex=3;
+    else if(month=="May")
+        lclMonthIndex=4;
+    else if(month=="June")
+        lclMonthIndex=5;
+    else if(month=="July")
+        lclMonthIndex=6;
+    else if(month=="August")
+        lclMonthIndex=7;
+    else if(month=="September")
+        lclMonthIndex=8;
+    else if(month=="October")
+        lclMonthIndex=9;
+    else if(month=="November")
+        lclMonthIndex=10;
+    else if(month=="December")
+        lclMonthIndex=11;
+    else{
+        printf("Invalid input");
+        return 0;
+    }
+    if(year<*pYear){
+        while(lclMonthIndex!=*pMonthIndex || year!=*pYear){
+            changeDay(1,0);
+        }
+        while(*pMonthDay!=1){
+            changeDay(1,0);
+        }
+    }
+    else if(year>*pYear){
+        while(lclMonthIndex!=*pMonthIndex || year!=*pYear){
+            changeDay(1,1);
+        }
+        while(*pMonthDay!=1){
+            changeDay(1,1);
+        }
+    }
+    //Go forward to find the first day of the desired month
+    else if(lclMonthIndex>*pMonthIndex){
+        while(lclMonthIndex!=*pMonthIndex){
+            changeDay(1,1);
+        }
+        while(*pMonthDay!=1){
+            changeDay(1,1);
+        }
+    }
+    //Go backwards to find the first day of the desired month
+    else if(lclMonthIndex<*pMonthIndex){
+        while(lclMonthIndex!=*pMonthIndex){
+            changeDay(1,0);
+        }
+    }
+    else{
+        while(*pMonthDay!=1){
+            changeDay(1,0);
+        }
+    }
+    printGrid();
+}
+
+void printFull(){
+    printf("Today is %s and the date is %s %d in %d\n",days[*pDayIndex],months[*pMonthIndex],*pMonthDay,year);
+}
+
+void printDate(){
+    if(*pMonthIndex+1<10){
+        printf("%d.0%d.%d %s\n",*pMonthDay,*pMonthIndex+1,year,days[*pDayIndex]);
+        return 0;
+    }
+    printf("%d.%d.%d %s\n",*pMonthDay,*pMonthIndex+1,year,days[*pDayIndex]);
+}
+
+void changeDay(int days,int fwrd){
+    if (fwrd==1){
+        for (int i=0;i<days;i++){
+            *pDayIndex+=1;
+            if (*pDayIndex>=7){
+                *pDayIndex=0;
+            }
+            *pMonthDay+=1;
+            if(*pMonthDay>=monthDays[*pMonthIndex]+1){
+                *pMonthIndex+=1;
+                *pMonthDay=1;
+            if(*pMonthIndex>11){
+                *pMonthIndex=0;
+                *pYear+=1;
+                if(*pYear%4==0){
+                    monthDays[1]=29;
+                }
+                else{
+                    monthDays[1]=28;
+                }
+            }
+            }
+        }
+    }
+    else{
+        for(int i=0;i<days;i++){
+            *pDayIndex-=1;
+            if (*pDayIndex<0){
+                *pDayIndex=0;
+            }
+            *pMonthDay-=1;
+            if(*pMonthDay<1){
+                *pMonthIndex-=1;
+                *pMonthDay=1;
+            }
+            if(*pMonthIndex<0){
+                *pMonthIndex=11;
+                *pYear-=1;
+                if(*pYear%4==0){
+                    monthDays[1]=29;
+                }
+                else{
+                    monthDays[1]=28;
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    /*
+    char inpMonth[10];
+    int inpYear;
+    printf("Enter the year: ");
+    scanf("%d",&inpYear);
+    printf("Enter the month: ");
+    fgets(inpMonth,10,stdin);
+    printMonth(inpMonth,inpYear);
+    */
+    printMonth("May",2026);
+    printf("\n");
+    printFull();
+    return 0;
+}
