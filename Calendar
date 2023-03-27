@@ -8,9 +8,9 @@ int year=2023;
 int* pYear=&year;
 int monthIndex=2;
 int* pMonthIndex=&monthIndex;
-int monthDay=1;
+int monthDay=3;
 int* pMonthDay=&monthDay;
-int dayIndex=2;
+int dayIndex=4;
 int* pDayIndex=&dayIndex;
 
 void printGrid(){
@@ -101,8 +101,6 @@ void printMonth(char month[],int year){
         while(lclMonthIndex!=*pMonthIndex){
             changeDay(1,0);
         }
-    }
-    else{
         while(*pMonthDay!=1){
             changeDay(1,0);
         }
@@ -149,23 +147,23 @@ void changeDay(int days,int fwrd){
     else{
         for(int i=0;i<days;i++){
             *pDayIndex-=1;
-            if (*pDayIndex<0){
-                *pDayIndex=0;
+            if(*pDayIndex<0){
+                *pDayIndex=6;
             }
             *pMonthDay-=1;
-            if(*pMonthDay<1){
+            if(monthDay<1){
                 *pMonthIndex-=1;
-                *pMonthDay=1;
-            }
-            if(*pMonthIndex<0){
-                *pMonthIndex=11;
-                *pYear-=1;
-                if(*pYear%4==0){
-                    monthDays[1]=29;
+                if(*pMonthIndex<0){
+                    *pYear-=1;
+                    *pMonthIndex=11;
+                    if(*pYear%4==0){
+                        monthDays[1]=29;
+                    }
+                    else{
+                        monthDays[1]=28;
+                    }
                 }
-                else{
-                    monthDays[1]=28;
-                }
+                *pMonthDay=monthDays[*pMonthIndex];
             }
         }
     }
@@ -182,7 +180,7 @@ int main()
     fgets(inpMonth,10,stdin);
     printMonth(inpMonth,inpYear);
     */
-    printMonth("May",2026);
+    printMonth("May",2027);
     printf("\n");
     printFull();
     return 0;
