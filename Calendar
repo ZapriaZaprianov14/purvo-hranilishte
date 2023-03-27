@@ -20,7 +20,7 @@ void printGrid(){
     }
     int numberOfdays=monthDays[*pMonthIndex];
     for(int i=0;i<numberOfdays;i++){
-        if(*pDayIndex==0){
+        if(*pDayIndex==0 && i!=0 ){
             printf("\n");
             if(*pMonthDay>=10){
                 printf("%d  ",*pMonthDay);
@@ -38,6 +38,12 @@ void printGrid(){
             }
         }
         changeDay(1,1);
+    }
+}
+
+void printYear(int year){
+    for(int i=0;i<12;i++){
+        printMonth(months[i],year);
     }
 }
 
@@ -180,8 +186,7 @@ int main()
     fgets(inpMonth,10,stdin);
     printMonth(inpMonth,inpYear);
     */
-    printMonth("May",2027);
-    printf("\n");
-    printFull();
+    printMonth("April",2002);
+    //printYear(2023);
     return 0;
 }
