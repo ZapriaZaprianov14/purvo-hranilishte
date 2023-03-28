@@ -28,6 +28,7 @@ void printGrid(){
             else{
                 printf("%d   ",*pMonthDay);
             }
+            
         }
         else{
             if(*pMonthDay>=10){
