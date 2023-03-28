@@ -42,11 +42,52 @@ void printGrid(){
 }
 
 void printYear(int year){
+    printf("January %d: \n",year);
+    printMonth("January",year);
+    printf("\n\n");
+    printf("February %d: \n",year);
+    printMonth("February",year);
+    printf("\n\n");
+    printf("March %d: \n",year);
+    printMonth("March",year);
+    printf("\n\n");
+    printf("April %d: \n",year);
+    printMonth("April",year);
+    printf("\n\n");
+    printf("May %d: \n",year);
+    printMonth("May",year);
+    printf("\n\n");
+    printf("June %d: \n",year);
+    printMonth("June",year);
+    printf("\n\n");
+    printf("July %d: \n",year);
+    printMonth("July",year);
+    printf("\n\n");
+    printf("August %d: \n",year);
+    printMonth("August",year);
+    printf("\n\n");
+    printf("September %d: \n",year);
+    printMonth("September",year);
+    printf("\n\n");
+    printf("October %d: \n",year);
+    printMonth("October",year);
+    printf("\n\n");
+    printf("November %d: \n",year);
+    printMonth("November",year);
+    printf("\n\n");
+    printf("December %d: \n",year);
+    printMonth("December",year);
+}
+/*
+void printArray(char array[]){
     for(int i=0;i<12;i++){
-        printMonth(months[i],year);
+        int size=sizeof(array[i]);
+            for(int j=0;j<size;j++){
+                printf("%c",array[i][j]);
+            }
     }
 }
-
+*/
 void printMonth(char month[],int year){
     int lclMonthIndex;
     if (month=="January")
@@ -177,16 +218,8 @@ void changeDay(int days,int fwrd){
 
 int main()
 {
-    /*
-    char inpMonth[10];
-    int inpYear;
-    printf("Enter the year: ");
-    scanf("%d",&inpYear);
-    printf("Enter the month: ");
-    fgets(inpMonth,10,stdin);
-    printMonth(inpMonth,inpYear);
-    */
-    printMonth("April",2002);
-    //printYear(2023);
+
+    //printArray(months)
+    printYear(2024);
     return 0;
 }
